@@ -89,6 +89,8 @@ namespace CoCSaver
             }
         }
 
+
+
         private void Panel_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left) CropRect.EndDrag();
@@ -115,6 +117,28 @@ namespace CoCSaver
             zoom *= delta > 0 ? 1.1f : 0.9f;
             zoom = Math.Max(0.1f, Math.Min(zoom, 10f));
         }
+
+        public void RotateImage(int count)
+        {
+            if (loadedImage == null) return;
+
+            // Normalize the count to be between 0 and 3
+            int normalizedCount = ((count % 4) + 4) % 4;
+
+            if (normalizedCount == 0) return; // No rotation needed
+
+            // Rotate the image by 90 degrees the required number of times
+            for (int i = 0; i < normalizedCount; i++)
+            {
+                loadedImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            }
+
+            // Reset offset and update scroll size
+            offset = new PointF(0, 0);
+            UpdateScrollSize();
+            panel.Invalidate();
+        }
+
 
         public void AdjustOffsetForMouse(Point mousePosition, float oldZoom)
         {

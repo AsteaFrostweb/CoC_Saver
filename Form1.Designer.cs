@@ -51,6 +51,7 @@ namespace CoCSaver
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.RotateImageButton = new System.Windows.Forms.Button();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -264,6 +265,7 @@ namespace CoCSaver
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.panel2.Controls.Add(this.RotateImageButton);
             this.panel2.Controls.Add(this.ImagePanel);
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.ImportImageButton);
@@ -279,6 +281,16 @@ namespace CoCSaver
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(770, 753);
             this.panel2.TabIndex = 20;
+            // 
+            // RotateImageButton
+            // 
+            this.RotateImageButton.Image = ((System.Drawing.Image)(resources.GetObject("RotateImageButton.Image")));
+            this.RotateImageButton.Location = new System.Drawing.Point(557, 246);
+            this.RotateImageButton.Name = "RotateImageButton";
+            this.RotateImageButton.Size = new System.Drawing.Size(40, 42);
+            this.RotateImageButton.TabIndex = 20;
+            this.RotateImageButton.UseVisualStyleBackColor = true;
+            this.RotateImageButton.Click += new System.EventHandler(this.RotateImageButton_Click);
             // 
             // Form1
             // 
@@ -330,6 +342,7 @@ namespace CoCSaver
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button RotateImageButton;
     }
 }
 

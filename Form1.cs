@@ -31,6 +31,8 @@ namespace CoCSaver
             // Initialize combo box
             SaveFormatComboBox.Items.AddRange(new string[] { "jpg", "png", "bmp" });
             SaveFormatComboBox.SelectedIndex = 0;
+
+            
         }
 
         //-------------------------------------- OCR + Cropping --------------------------------------
@@ -198,6 +200,11 @@ namespace CoCSaver
             }
         }
 
+        private void RotateImageButton_Click(object sender, EventArgs e)
+        {
+            scalableImage.RotateImage(1);            
+        }
+
         private void SetRootDirButton_Click(object sender, EventArgs e)
         {
             using (var fbd = new FolderBrowserDialog()
@@ -221,5 +228,7 @@ namespace CoCSaver
             ppBrightnessThreshold = (byte)(100 + ppBrightnessThresholdTrackBar.Value);
             TryUpdateCroppedImage();
         }
+
+     
     }
 }
