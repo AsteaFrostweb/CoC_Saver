@@ -30,7 +30,8 @@ namespace CoCSaver
             ppBrightnessThresholdTrackBar.Minimum = 0;
             ppBrightnessThresholdTrackBar.Maximum = BRIGHTNESS_THRESHOLD_VARIANCE * 2; //Example Range (0-80)
 
-
+            //Assign previous value if there is one to the save location 
+            RootDirLabel.Text = Properties.Settings.Default.LastFolder; 
 
             //Initialize OCR isntance
             ocrProcessor = new OCR("./tessdata", "eng");          
@@ -196,6 +197,10 @@ namespace CoCSaver
                 {
                     rootDirectory = fbd.SelectedPath;
                     RootDirLabel.Text = rootDirectory;
+             
+                    //Save Persistent data
+                    Properties.Settings.Default.LastFolder = rootDirectory;                 
+                    Properties.Settings.Default.Save();
                 }
             }
         }

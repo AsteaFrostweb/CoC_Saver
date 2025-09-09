@@ -49,7 +49,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>bqAvL2heBnTCm1BNPzLaMyE874UNFRYlHMFO1HNHStw=</dsig:DigestValue>
+        <dsig:DigestValue>t+9pxAFB3t3fBqOavlxDkAf/uv5ICNOw6CxwF3UUZcA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -101,13 +101,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="CoCSaver.exe.config" size="189">
+  <file name="CoCSaver.exe.config" size="912">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>R+Wg8QGvQVHX8T0ta/qbhH1bXkqY0fRnS3wBV3J0bN8=</dsig:DigestValue>
+      <dsig:DigestValue>PT8+OdG4Qd6oEKAlz/DIeBoOGkhFEUvzG+sE3qInT5M=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
