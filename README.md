@@ -1,9 +1,34 @@
+
 # CoCSaver
 
-CoCSaver is a Windows desktop tool for processing text from images.  
+CoCSaver is a desktop tool for processing text from images.  
 It allows you to load, crop, and run OCR (Optical Character Recognition) on scanned documents.  
 The extracted text (such as lot numbers) can be used to automatically save files with the correct filename.
 
+---
+
+## Requirements
+- Windows 7, 8, 10, or 11  
+- [.NET Framework 4.7.2 or higher](https://dotnet.microsoft.com/download/dotnet-framework)  
+- Tesseract OCR DLLs (included in release)  
+- `tessdata` folder with language files (included in release)
+
+> Note: This application does **not** support Windows XP or Vista.
+
+
+---
+
+## How To Run
+1. Download the release directory as .zip from (./bin/Release)
+2. Extract the zip file.  
+3. Run `CoCSaver.exe`.  
+4. Load an image from your pc or a scanner.  
+5. Select the line on text to scan.  aprox. (1-16 characters)  
+6. Text should automatically parse into "Parsed Text" field (If not press the "Parse Text" button).
+7. Check the parsed text for errors, usual suspects:(0, D, I, 1)
+8. Save the image — the file will be named using the parsed text.  
+---
+![CoCSaver Banner](https://i.imgur.com/fkyoO3p.png)
 ---
 
 ## Features
@@ -27,28 +52,7 @@ The extracted text (such as lot numbers) can be used to automatically save files
   - Supports multiple output formats (JPG, PNG, BMP)  
   - Save location can be set once and reused  
 
----
 
-## Requirements
-- Windows 7, 8, 10, or 11  
-- [.NET Framework 4.7.2 or higher](https://dotnet.microsoft.com/download/dotnet-framework)  
-- Tesseract OCR DLLs (included in release)  
-- `tessdata` folder with language files (included in release)
-
-> Note: This application does **not** support Windows XP or Vista.
-
-
----
-
-## Getting Started
-1. Download the release directory as .zip.  
-2. Extract the zip file.  
-3. Run `CoCSaver.exe`.  
-4. Load an image from your pc or a scanner.  
-5. Select the line on text to scan.  aprox. (1-16 characters)  
-6. Text should automatically parse into "Parsed Text" field (If not press the "Parse Text" button).
-7. Check the parsed text for errors, usual suspects:(0, D, I, 1)
-8. Save the image — the file will be named using the parsed text.  
 
 ---
 
