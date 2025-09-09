@@ -56,6 +56,7 @@ namespace CoCSaver
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.ImagePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CroppedImagePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ppBrightnessThresholdTrackBar)).BeginInit();
             this.panel1.SuspendLayout();
@@ -190,6 +191,7 @@ namespace CoCSaver
             this.ImagePanel.AllowDrop = true;
             this.ImagePanel.BackColor = System.Drawing.SystemColors.Control;
             this.ImagePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ImagePanel.Controls.Add(this.RotateImageButton);
             this.ImagePanel.Location = new System.Drawing.Point(5, 3);
             this.ImagePanel.Name = "ImagePanel";
             this.ImagePanel.Size = new System.Drawing.Size(798, 746);
@@ -279,7 +281,6 @@ namespace CoCSaver
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel2.Controls.Add(this.RotateImageButton);
             this.panel2.Controls.Add(this.ImagePanel);
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.ImportImageButton);
@@ -298,8 +299,11 @@ namespace CoCSaver
             // 
             // RotateImageButton
             // 
+            this.RotateImageButton.FlatAppearance.BorderSize = 2;
+            this.RotateImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RotateImageButton.ForeColor = System.Drawing.SystemColors.ControlText;
             this.RotateImageButton.Image = ((System.Drawing.Image)(resources.GetObject("RotateImageButton.Image")));
-            this.RotateImageButton.Location = new System.Drawing.Point(808, 246);
+            this.RotateImageButton.Location = new System.Drawing.Point(753, 699);
             this.RotateImageButton.Name = "RotateImageButton";
             this.RotateImageButton.Size = new System.Drawing.Size(40, 42);
             this.RotateImageButton.TabIndex = 20;
@@ -324,6 +328,7 @@ namespace CoCSaver
             this.panel5.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.ImagePanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CroppedImagePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ppBrightnessThresholdTrackBar)).EndInit();
             this.panel1.ResumeLayout(false);
