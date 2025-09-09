@@ -10,6 +10,9 @@ namespace CoCSaver
 {
     public partial class Form1 : Form
     {
+        private const int BRIGHTNESS_THRESHOLD_BASE = 128;
+        private const int BRIGHTNESS_THRESHOLD_VARIANCE = 40;
+
         private ScalableImage scalableImage;
         private string rootDirectory;
         private string parsedText;
@@ -17,9 +20,17 @@ namespace CoCSaver
         private Bitmap croppedImage = null;
         private OCR ocrProcessor;
 
+
+
         public Form1()
         {
             InitializeComponent();
+            //Setup trackbar range
+            ppBrightnessThresholdTrackBar.Value = BRIGHTNESS_THRESHOLD_VARIANCE;
+            ppBrightnessThresholdTrackBar.Minimum = 0;
+            ppBrightnessThresholdTrackBar.Maximum = BRIGHTNESS_THRESHOLD_VARIANCE * 2; //Example Range (0-80)
+
+
 
             //Initialize OCR isntance
             ocrProcessor = new OCR("./tessdata", "eng");          
@@ -145,22 +156,16 @@ namespace CoCSaver
 
         private void ImportImageButton_Click(object sender, EventArgs e)
         {
-            WIA.CommonDialog dialog = new WIA.CommonDialog();
-            Device scanner;
-            try { scanner = dialog.ShowSelectDevice(WiaDeviceType.ScannerDeviceType, true, false); }
-            catch { MessageBox.Show("Error selecting scanner."); return; }
 
-            if (scanner != null)
-            {
-                Item item = scanner.Items[1];
-                ImageFile image = (ImageFile)dialog.ShowTransfer(item, WIA.FormatID.wiaFormatJPEG, false);
+            Bitmap image = IO.TryScanImage();
                 if (image != null)
-                    scalableImage.DisplayBitmap(ImageProcessing.WiaImageFileToBitmap(image));
-            }
+                    scalableImage.DisplayBitmap(image);
+            
         }
 
         private void SaveImageButton_Click(object sender, EventArgs e)
         {
+            //Check all the requirements to save image (root, File Name, File Extension, loaded_image)
             if (parsedText != ParsedTextTextBox.Text) parsedText = ParsedTextTextBox.Text;
             if (scalableImage.LoadedImage == null) { MessageBox.Show("No image loaded."); return; }
             if (string.IsNullOrWhiteSpace(parsedText)) { MessageBox.Show("No filename specified."); return; }
@@ -172,6 +177,7 @@ namespace CoCSaver
             IO.TrySaveImage(rootDirectory, parsedText, extension, scalableImage.LoadedImage);
         }
 
+        
         private void RotateImageButton_Click(object sender, EventArgs e)
         {
             scalableImage.RotateImage(1);            
@@ -179,6 +185,7 @@ namespace CoCSaver
 
         private void SetRootDirButton_Click(object sender, EventArgs e)
         {
+            //Use fodler broser dialog to find and set root directory (save location)
             using (var fbd = new FolderBrowserDialog()
             {
                 Description = "Select a root directory",
@@ -193,14 +200,16 @@ namespace CoCSaver
             }
         }
 
-        //-------------------------------------- Threshold Trackbar --------------------------------------
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void ThresholdTrackBar_Scroll(object sender, EventArgs e)
         {
-            // BASE OF 100 + 20, range 100–140
-            ppBrightnessThreshold = (byte)(100 + ppBrightnessThresholdTrackBar.Value);
+                                                    // BASE - VARIANCE eg. 120 - 40 = 80              
+            ppBrightnessThreshold = (byte)((BRIGHTNESS_THRESHOLD_BASE - BRIGHTNESS_THRESHOLD_VARIANCE) + ppBrightnessThresholdTrackBar.Value);
             TryUpdateCroppedImage();
         }
 
-     
+        private void ResetBrightnessThresholdButton_Click(object sender, EventArgs e)
+        {
+            ppBrightnessThresholdTrackBar.Value = BRIGHTNESS_THRESHOLD_VARIANCE; 
+        }
     }
 }

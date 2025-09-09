@@ -48,6 +48,7 @@ namespace CoCSaver
             this.label1 = new System.Windows.Forms.Label();
             this.ppBrightnessThresholdTrackBar = new System.Windows.Forms.TrackBar();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ResetBrightnessThresholdButton = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -64,7 +65,7 @@ namespace CoCSaver
             // ImportImageButton
             // 
             this.ImportImageButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ImportImageButton.Location = new System.Drawing.Point(559, 726);
+            this.ImportImageButton.Location = new System.Drawing.Point(810, 726);
             this.ImportImageButton.Name = "ImportImageButton";
             this.ImportImageButton.Size = new System.Drawing.Size(207, 23);
             this.ImportImageButton.TabIndex = 1;
@@ -75,7 +76,7 @@ namespace CoCSaver
             // LoadImageButton
             // 
             this.LoadImageButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.LoadImageButton.Location = new System.Drawing.Point(560, 697);
+            this.LoadImageButton.Location = new System.Drawing.Point(811, 697);
             this.LoadImageButton.Name = "LoadImageButton";
             this.LoadImageButton.Size = new System.Drawing.Size(206, 23);
             this.LoadImageButton.TabIndex = 2;
@@ -98,7 +99,7 @@ namespace CoCSaver
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.ParsedTextTextBox);
             this.panel4.Controls.Add(this.label4);
-            this.panel4.Location = new System.Drawing.Point(556, 52);
+            this.panel4.Location = new System.Drawing.Point(807, 52);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(207, 43);
             this.panel4.TabIndex = 9;
@@ -118,7 +119,7 @@ namespace CoCSaver
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel5.Controls.Add(this.label5);
             this.panel5.Controls.Add(this.panel6);
-            this.panel5.Location = new System.Drawing.Point(556, 3);
+            this.panel5.Location = new System.Drawing.Point(807, 3);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(207, 43);
             this.panel5.TabIndex = 10;
@@ -154,7 +155,7 @@ namespace CoCSaver
             // SetRootDirButton
             // 
             this.SetRootDirButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.SetRootDirButton.Location = new System.Drawing.Point(560, 668);
+            this.SetRootDirButton.Location = new System.Drawing.Point(811, 668);
             this.SetRootDirButton.Name = "SetRootDirButton";
             this.SetRootDirButton.Size = new System.Drawing.Size(206, 23);
             this.SetRootDirButton.TabIndex = 11;
@@ -165,7 +166,7 @@ namespace CoCSaver
             // ParseTextButton
             // 
             this.ParseTextButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ParseTextButton.Location = new System.Drawing.Point(560, 639);
+            this.ParseTextButton.Location = new System.Drawing.Point(811, 639);
             this.ParseTextButton.Name = "ParseTextButton";
             this.ParseTextButton.Size = new System.Drawing.Size(203, 23);
             this.ParseTextButton.TabIndex = 12;
@@ -176,7 +177,7 @@ namespace CoCSaver
             // SaveImageButton
             // 
             this.SaveImageButton.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.SaveImageButton.Location = new System.Drawing.Point(560, 610);
+            this.SaveImageButton.Location = new System.Drawing.Point(811, 610);
             this.SaveImageButton.Name = "SaveImageButton";
             this.SaveImageButton.Size = new System.Drawing.Size(203, 23);
             this.SaveImageButton.TabIndex = 13;
@@ -186,17 +187,18 @@ namespace CoCSaver
             // 
             // ImagePanel
             // 
+            this.ImagePanel.AllowDrop = true;
             this.ImagePanel.BackColor = System.Drawing.SystemColors.Control;
             this.ImagePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ImagePanel.Location = new System.Drawing.Point(3, 3);
+            this.ImagePanel.Location = new System.Drawing.Point(5, 3);
             this.ImagePanel.Name = "ImagePanel";
-            this.ImagePanel.Size = new System.Drawing.Size(547, 746);
+            this.ImagePanel.Size = new System.Drawing.Size(798, 746);
             this.ImagePanel.TabIndex = 14;
             // 
             // SaveFormatComboBox
             // 
             this.SaveFormatComboBox.FormattingEnabled = true;
-            this.SaveFormatComboBox.Location = new System.Drawing.Point(638, 583);
+            this.SaveFormatComboBox.Location = new System.Drawing.Point(889, 583);
             this.SaveFormatComboBox.Name = "SaveFormatComboBox";
             this.SaveFormatComboBox.Size = new System.Drawing.Size(121, 21);
             this.SaveFormatComboBox.TabIndex = 15;
@@ -215,7 +217,7 @@ namespace CoCSaver
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(565, 586);
+            this.label1.Location = new System.Drawing.Point(816, 586);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 13);
             this.label1.TabIndex = 17;
@@ -224,25 +226,37 @@ namespace CoCSaver
             // ppBrightnessThresholdTrackBar
             // 
             this.ppBrightnessThresholdTrackBar.Location = new System.Drawing.Point(1, 96);
-            this.ppBrightnessThresholdTrackBar.Maximum = 40;
+            this.ppBrightnessThresholdTrackBar.Maximum = 80;
             this.ppBrightnessThresholdTrackBar.Name = "ppBrightnessThresholdTrackBar";
             this.ppBrightnessThresholdTrackBar.Size = new System.Drawing.Size(203, 45);
             this.ppBrightnessThresholdTrackBar.TabIndex = 18;
             this.ppBrightnessThresholdTrackBar.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.ppBrightnessThresholdTrackBar.Value = 20;
-            this.ppBrightnessThresholdTrackBar.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            this.ppBrightnessThresholdTrackBar.Value = 40;
+            this.ppBrightnessThresholdTrackBar.Scroll += new System.EventHandler(this.ThresholdTrackBar_Scroll);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.panel1.Controls.Add(this.ResetBrightnessThresholdButton);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.CroppedImagePictureBox);
             this.panel1.Controls.Add(this.ppBrightnessThresholdTrackBar);
-            this.panel1.Location = new System.Drawing.Point(556, 97);
+            this.panel1.Location = new System.Drawing.Point(807, 97);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(207, 142);
             this.panel1.TabIndex = 19;
+            // 
+            // ResetBrightnessThresholdButton
+            // 
+            this.ResetBrightnessThresholdButton.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.ResetBrightnessThresholdButton.Location = new System.Drawing.Point(160, 73);
+            this.ResetBrightnessThresholdButton.Name = "ResetBrightnessThresholdButton";
+            this.ResetBrightnessThresholdButton.Size = new System.Drawing.Size(44, 21);
+            this.ResetBrightnessThresholdButton.TabIndex = 21;
+            this.ResetBrightnessThresholdButton.Text = "Reset";
+            this.ResetBrightnessThresholdButton.UseVisualStyleBackColor = false;
+            this.ResetBrightnessThresholdButton.Click += new System.EventHandler(this.ResetBrightnessThresholdButton_Click);
             // 
             // label3
             // 
@@ -279,13 +293,13 @@ namespace CoCSaver
             this.panel2.Controls.Add(this.ParseTextButton);
             this.panel2.Location = new System.Drawing.Point(-1, 1);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(770, 753);
+            this.panel2.Size = new System.Drawing.Size(1019, 753);
             this.panel2.TabIndex = 20;
             // 
             // RotateImageButton
             // 
             this.RotateImageButton.Image = ((System.Drawing.Image)(resources.GetObject("RotateImageButton.Image")));
-            this.RotateImageButton.Location = new System.Drawing.Point(557, 246);
+            this.RotateImageButton.Location = new System.Drawing.Point(808, 246);
             this.RotateImageButton.Name = "RotateImageButton";
             this.RotateImageButton.Size = new System.Drawing.Size(40, 42);
             this.RotateImageButton.TabIndex = 20;
@@ -296,7 +310,7 @@ namespace CoCSaver
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(769, 755);
+            this.ClientSize = new System.Drawing.Size(1019, 755);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -343,6 +357,7 @@ namespace CoCSaver
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button RotateImageButton;
+        private System.Windows.Forms.Button ResetBrightnessThresholdButton;
     }
 }
 

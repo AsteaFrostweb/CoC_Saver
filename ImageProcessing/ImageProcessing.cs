@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using WIA;
 
 namespace CoCSaver
@@ -86,11 +88,35 @@ namespace CoCSaver
 
         public static Bitmap WiaImageFileToBitmap(ImageFile imageFile)
         {
-            var bytes = (byte[])imageFile.FileData.get_BinaryData();
-            using (var ms = new System.IO.MemoryStream(bytes))
+            
+            if (imageFile == null || imageFile.FileData == null)
+                return null;
+
+            byte[] bytes = null;          
+            bytes = (byte[])imageFile.FileData.get_BinaryData();
+            
+        
+
+            if (bytes == null || bytes.Length == 0)
             {
-                return new Bitmap(ms);
+                MessageBox.Show("Error: No binary data extracted from WIA ImageFile");
+                return null;
             }
+
+            using (var ms = new MemoryStream(bytes))
+            {
+                try
+                {                       
+                    return new Bitmap(ms);
+                }
+                catch
+                {
+                    MessageBox.Show("Error: Invalid or corrupt data in Bitmap constructor");
+                    return null;
+                }
+            }          
+           
         }
+
     }
 }

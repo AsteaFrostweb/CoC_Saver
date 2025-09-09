@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CoCSaver.exe" size="442336">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CoCSaver.exe" size="443360">
       <assemblyIdentity name="CoCSaver" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>W9xkq0uWOIQZvvY8hJoXJlyEILHXqa9jdXViIQiP45M=</dsig:DigestValue>
+        <dsig:DigestValue>bqAvL2heBnTCm1BNPzLaMyE874UNFRYlHMFO1HNHStw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

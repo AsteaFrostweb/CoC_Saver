@@ -17,6 +17,7 @@ namespace CoCSaver
         public float Zoom => zoom;
         public PointF Offset => offset;
 
+
         public ScalableImage(Panel panel)
         {
             this.panel = panel;
@@ -44,8 +45,9 @@ namespace CoCSaver
             panel.Invalidate();
         }
 
-        // -------- Event Handlers --------
-        private void Panel_MouseWheel(object sender, MouseEventArgs e)
+
+        // --------  -------- Event Handlers --------  -------- 
+        private void Panel_MouseWheel(object sender, MouseEventArgs e) //ScrollWheel
         {
             if (loadedImage == null) return;
             float oldZoom = zoom;
@@ -54,27 +56,29 @@ namespace CoCSaver
             panel.Invalidate();
         }
 
-        private void Panel_MouseDown(object sender, MouseEventArgs e)
+
+        private void Panel_MouseDown(object sender, MouseEventArgs e) //MouseDown
         {
             if (loadedImage == null) return;
 
             if (e.Button == MouseButtons.Left)
             {
-                CropRect.BeginDrag(PanelToImage(e.Location));
+                CropRect.BeginDrag(PanelToImage(e.Location)); //LEFT CLICK: BEGIT DRAGGING CROPPED RECT
             }
             else if (e.Button == MouseButtons.Right)
             {
-                panStart = e.Location;
+                panStart = e.Location; //RIGHT CLICK: BEGIN PANNING THE IMAGE
             }
         }
 
-        private void Panel_MouseMove(object sender, MouseEventArgs e)
+
+        private void Panel_MouseMove(object sender, MouseEventArgs e) //MOUSE MOVE
         {
             if (loadedImage == null) return;
 
             if (e.Button == MouseButtons.Left)
             {
-                CropRect.UpdateDrag(PanelToImage(e.Location));
+                CropRect.UpdateDrag(PanelToImage(e.Location));//LEFT CLICK: UPDATE CROPPED RECT
                 panel.Invalidate();
             }
             else if (e.Button == MouseButtons.Right)
@@ -84,25 +88,26 @@ namespace CoCSaver
                 int dy = e.Y - panStart.Y;
                 offset.X += dx;
                 offset.Y += dy;
-                panStart = e.Location;
+                panStart = e.Location; //RIGHT CLICK: UPDATE IMAGE PANNING OFFSET
                 panel.Invalidate();
             }
         }
 
 
-
-        private void Panel_MouseUp(object sender, MouseEventArgs e)
+        private void Panel_MouseUp(object sender, MouseEventArgs e)//MOUSE UP
         {
-            if (e.Button == MouseButtons.Left) CropRect.EndDrag();
+            if (e.Button == MouseButtons.Left) CropRect.EndDrag();//LEFT CLICK: FINISH CROPPED RECT
         }
 
-        private void Panel_Paint(object sender, PaintEventArgs e)
+
+        private void Panel_Paint(object sender, PaintEventArgs e) //PAINT IMAGE
         {
             if (loadedImage == null) return;
 
             e.Graphics.Clear(Color.Black);
             e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
 
+            //Calculate relative draw size using "zoom"
             int drawWidth = (int)(loadedImage.Width * zoom);
             int drawHeight = (int)(loadedImage.Height * zoom);
 
@@ -111,72 +116,76 @@ namespace CoCSaver
             CropRect.Draw(e.Graphics, ImageToPanel);
         }
 
+
         // -------- Helpers --------
         public void UpdateZoomLevel(int delta)
         {
-            zoom *= delta > 0 ? 1.1f : 0.9f;
-            zoom = Math.Max(0.1f, Math.Min(zoom, 10f));
+            zoom *= delta > 0 ? 1.1f : 0.9f;                 // ZOOM IN (delta > 0) OR ZOOM OUT (delta < 0)
+            zoom = Math.Max(0.1f, Math.Min(zoom, 10f));      // LIMIT ZOOM RANGE BETWEEN 0.1x AND 10x
         }
+
 
         public void RotateImage(int count)
         {
-            if (loadedImage == null) return;
+            if (loadedImage == null) return;                 
 
-            // Normalize the count to be between 0 and 3
-            int normalizedCount = ((count % 4) + 4) % 4;
+            int normalizedCount = ((count % 4) + 4) % 4;     
 
-            if (normalizedCount == 0) return; // No rotation needed
+            if (normalizedCount == 0) return;                
 
-            // Rotate the image by 90 degrees the required number of times
-            for (int i = 0; i < normalizedCount; i++)
+            for (int i = 0; i < normalizedCount; i++)        // ROTATE CLOCKWISE 90 DEGREES "normalizedCount" TIMES
             {
                 loadedImage.RotateFlip(RotateFlipType.Rotate90FlipNone);
             }
 
-            // Reset offset and update scroll size
-            offset = new PointF(0, 0);
-            UpdateScrollSize();
-            panel.Invalidate();
+            offset = new PointF(0, 0);                      
+            UpdateScrollSize();                              
+            panel.Invalidate();                              
         }
 
 
         public void AdjustOffsetForMouse(Point mousePosition, float oldZoom)
         {
-            float scale = zoom / oldZoom;
+            float scale = zoom / oldZoom;                    // SCALE CHANGE FACTOR
             offset.X = mousePosition.X - scale * (mousePosition.X - offset.X);
             offset.Y = mousePosition.Y - scale * (mousePosition.Y - offset.Y);
+            // ADJUST OFFSET SO IMAGE ZOOMS RELATIVE TO MOUSE POSITION (NOT TOP-LEFT CORNER)
         }
+
 
         private void UpdateScrollSize()
         {
             if (loadedImage != null)
                 panel.AutoScrollMinSize = new Size(
-                    (int)(loadedImage.Width * zoom),
-                    (int)(loadedImage.Height * zoom)
+                    (int)(loadedImage.Width * zoom),         
+                    (int)(loadedImage.Height * zoom)       
                 );
         }
 
+
         public Point PanelToImage(Point panelPoint)
         {
-            if (loadedImage == null) return Point.Empty;
+            if (loadedImage == null) return Point.Empty;     
 
-            float imgX = (panelPoint.X - offset.X) / zoom;
-            float imgY = (panelPoint.Y - offset.Y) / zoom;
+            float imgX = (panelPoint.X - offset.X) / zoom;   //CONVERT COORDS.
+            float imgY = (panelPoint.Y - offset.Y) / zoom;   
 
-            int x = (int)Math.Max(0, Math.Min(imgX, loadedImage.Width - 1));
-            int y = (int)Math.Max(0, Math.Min(imgY, loadedImage.Height - 1));
+            int x = (int)Math.Max(0, Math.Min(imgX, loadedImage.Width - 1));  // CLAMP X WITHIN IMAGE BOUNDS
+            int y = (int)Math.Max(0, Math.Min(imgY, loadedImage.Height - 1)); // CLAMP Y WITHIN IMAGE BOUNDS
 
-            return new Point(x, y);
+            return new Point(x, y);                          // RETURN IMAGE-SPACE POINT
         }
+
 
         public Rectangle ImageToPanel(Rectangle imgRect)
         {
             return new Rectangle(
-                (int)(imgRect.X * zoom + offset.X),
-                (int)(imgRect.Y * zoom + offset.Y),
-                (int)(imgRect.Width * zoom),
-                (int)(imgRect.Height * zoom)
+                (int)(imgRect.X * zoom + offset.X),          // CONVERT IMAGE X TO PANEL X
+                (int)(imgRect.Y * zoom + offset.Y),          // CONVERT IMAGE Y TO PANEL Y
+                (int)(imgRect.Width * zoom),                 // SCALE IMAGE WIDTH
+                (int)(imgRect.Height * zoom)                 // SCALE IMAGE HEIGHT
             );
         }
     }
 }
+   

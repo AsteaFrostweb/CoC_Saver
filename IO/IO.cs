@@ -5,12 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WIA;
 
 namespace CoCSaver
 {
     public static class IO
     {
+        public static Bitmap TryScanImage()
+        {
+            WIA.CommonDialog dialog = new WIA.CommonDialog();
+            Device scanner;
+            try { scanner = dialog.ShowSelectDevice(WiaDeviceType.ScannerDeviceType, true, false); }
+            catch { MessageBox.Show("Error selecting scanner."); return null; }
 
+            ImageFile image = null;
+            if (scanner != null)
+            {
+                Item item = scanner.Items[1];
+                image = (ImageFile)dialog.ShowTransfer(item, WIA.FormatID.wiaFormatJPEG, false);
+            }
+
+            return ImageProcessing.WiaImageFileToBitmap(image);
+        }
         public static void TrySaveImage(string rootDirectory, string fileName, string extension, Bitmap image) 
         {
             string parsedText = fileName;
