@@ -47,8 +47,8 @@ namespace CoCSaver
             
         }
 
-        //-------------------------------------- OCR + Cropping --------------------------------------
-        private void TryUpdateCroppedImage()
+       
+        private void TryUpdateCroppedImage() //Attempts to update the cropped image preview on the right side of the form
         {
             if (scalableImage.CropRect.HasSelection)
             {
@@ -57,13 +57,13 @@ namespace CoCSaver
             }
         }
 
-        private void UpdateCroppedImage()
+        private void UpdateCroppedImage() //Updaetes the cropped image preview
         {
             croppedImage = GetCroppedPreProcessedArea();
             CroppedImagePictureBox.Invalidate();
         }
 
-        private Bitmap GetCroppedPreProcessedArea()
+        private Bitmap GetCroppedPreProcessedArea() //Get the cropped area of the loaded image
         {
             if (scalableImage.LoadedImage == null || !scalableImage.CropRect.HasSelection)
                 return null;
@@ -81,32 +81,13 @@ namespace CoCSaver
             e.Graphics.DrawImage(croppedImage, 0, 0, CroppedImagePictureBox.Width, CroppedImagePictureBox.Height);
         }
 
-        //-------------------------------------- OCR Parsing --------------------------------------
-        private async void ParseTextButton_Click(object sender, EventArgs e)
+
+        
+        private void ParseTextButton_Click(object sender, EventArgs e)
         {
-            if (scalableImage.LoadedImage == null || !scalableImage.CropRect.HasSelection)
-            {
-                MessageBox.Show("No image loaded or selection empty.");
-                return;
-            }
-
-            Rectangle imgRect = scalableImage.CropRect.Rect;
-            Bitmap cropped = scalableImage.LoadedImage.Clone(imgRect, scalableImage.LoadedImage.PixelFormat);
-
-            try
-            {
-                string text = await ocrProcessor.ProcessBitmapAsync(cropped, ppBrightnessThreshold);
-                parsedText = text;
-                ParsedTextTextBox.Text = parsedText;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            TryUpdateCroppedImage();
+            ParseText();
         }
-        private async void ParseText()
+        private async void ParseText() //Attempts to parse text using OCR processor
         {
             if (scalableImage.LoadedImage == null || !scalableImage.CropRect.HasSelection)
             {
@@ -118,13 +99,9 @@ namespace CoCSaver
                 MessageBox.Show("OCR processor not initialized.");
                 return;
             }
-
-            // Get the selected rectangle
-            Rectangle imgRect = scalableImage.CropRect.Rect;
-
-            // Clone the cropped area
-            Bitmap cropped = scalableImage.LoadedImage.Clone(imgRect, scalableImage.LoadedImage.PixelFormat);
-                      
+           
+            Rectangle imgRect = scalableImage.CropRect.Rect;   
+            Bitmap cropped = scalableImage.LoadedImage.Clone(imgRect, scalableImage.LoadedImage.PixelFormat);                      
 
             try
             {
@@ -141,7 +118,9 @@ namespace CoCSaver
             }
         }
 
-        //-------------------------------------- File Import/Save --------------------------------------
+
+
+
         private void LoadImageButton_Click(object sender, EventArgs e)
         {
             using (var ofd = new OpenFileDialog()
