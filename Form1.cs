@@ -167,37 +167,9 @@ namespace CoCSaver
             if (string.IsNullOrWhiteSpace(rootDirectory)) { MessageBox.Show("No root directory specified."); return; }
             if (SaveFormatComboBox.SelectedItem == null) { MessageBox.Show("No file format selected."); return; }
 
-            try
-            {
-                string extension = SaveFormatComboBox.SelectedItem.ToString().ToLower();
-                string safeFileName = string.Concat(parsedText.Split(System.IO.Path.GetInvalidFileNameChars()));
-                string savePath = System.IO.Path.Combine(rootDirectory, safeFileName + "." + extension);
-
-                System.Drawing.Imaging.ImageFormat format;
-                switch (extension.ToLower())
-                {
-                    case "jpg":
-                    case "jpeg":
-                        format = System.Drawing.Imaging.ImageFormat.Jpeg;
-                        break;
-                    case "png":
-                        format = System.Drawing.Imaging.ImageFormat.Png;
-                        break;
-                    case "bmp":
-                        format = System.Drawing.Imaging.ImageFormat.Bmp;
-                        break;
-                    default:
-                        format = System.Drawing.Imaging.ImageFormat.Jpeg;
-                        break;
-                }
-
-                scalableImage.LoadedImage.Save(savePath, format);
-                MessageBox.Show($"Image saved to: {savePath}");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error saving image: " + ex.Message);
-            }
+            //Attempt to save the image
+            string extension = SaveFormatComboBox.SelectedItem.ToString().ToLower();
+            IO.TrySaveImage(rootDirectory, parsedText, extension, scalableImage.LoadedImage);
         }
 
         private void RotateImageButton_Click(object sender, EventArgs e)

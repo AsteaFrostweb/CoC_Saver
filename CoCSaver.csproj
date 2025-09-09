@@ -99,8 +99,7 @@
     <Compile Include="ImageProcessing\ImageProcessing.cs" />
     <Compile Include="ImageProcessing\ScalableImage.cs" />
     <Compile Include="ImageProcessing\ScalableImageCropRect.cs" />
-    <Compile Include="IO\Saving.cs" />
-    <Compile Include="IO\Scanner.cs" />
+    <Compile Include="IO\IO.cs" />
     <Compile Include="OCR.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
