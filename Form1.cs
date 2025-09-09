@@ -193,7 +193,8 @@ namespace CoCSaver
 
         private void ResetBrightnessThresholdButton_Click(object sender, EventArgs e)
         {
-            ppBrightnessThresholdTrackBar.Value = BRIGHTNESS_THRESHOLD_VARIANCE; 
+            ppBrightnessThresholdTrackBar.Value = BRIGHTNESS_THRESHOLD_VARIANCE;
+            TryUpdateCroppedImage();
         }
     }
 }
